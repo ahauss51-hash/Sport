@@ -1,24 +1,133 @@
 {
-  "generated_at": "2026-08-27T06:00:00+00:00",
+  "generated_at": "2026-08-27T21:27:30+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
-      "Développé couché barre": { "wt": 97.5, "status": "progression", "caution": false, "last": "95 kg × 6,6,6" },
-      "Tractions lestées": { "wt": "+22.5", "status": "progression", "caution": false, "last": "20 kg × 8,8,8" },
-      "Développé incliné barre": { "wt": 60, "status": "maintien", "caution": false, "last": "60 kg × 7,6" }
-    },
-    "Upper 2": {
-      "Développé militaire (Smith/barre)": {
-        "wt": 50, "status": "prudence", "caution": true,
-        "cautionMsg": "Note de douleur détectée — charge maintenue. Réduis ~10 % (≈ 45) ou passe en variante plus douce si ça tire.",
-        "last": "50 kg × 8,7"
+      "Tractions lestées": {
+        "wt": "+22.5",
+        "status": "progression",
+        "caution": false,
+        "last": "20 kg × 8,8,8"
+      },
+      "Développé incliné barre": {
+        "wt": "60",
+        "status": "maintien",
+        "caution": false,
+        "last": "60 kg × 7,7,7"
+      },
+      "Rowing assis machine": {
+        "wt": "79",
+        "status": "maintien",
+        "caution": false,
+        "last": "79 kg × 8,8,8"
+      },
+      "Élévation latérale haltère": {
+        "wt": "12",
+        "status": "maintien",
+        "caution": false,
+        "last": "12 kg × 8,8,8"
+      },
+      "Extension triceps poulie": {
+        "wt": "41",
+        "status": "maintien",
+        "caution": false,
+        "last": "41 kg × 9"
+      },
+      "Tirage vers le visage": {
+        "wt": "32",
+        "status": "maintien",
+        "caution": false,
+        "last": "32 kg × 8"
       }
     },
     "Lower": {
-      "Squat barre": { "wt": 102.5, "status": "progression", "caution": false, "last": "100 kg × 6,6,6,6" }
+      "Squat barre": {
+        "wt": "100",
+        "status": "maintien",
+        "caution": false,
+        "last": "100 kg × 4,6,3"
+      },
+      "Presse à cuisses": {
+        "wt": "113",
+        "status": "maintien",
+        "caution": false,
+        "last": "113 kg × 4"
+      },
+      "Leg curl allongé": {
+        "wt": "50",
+        "status": "maintien",
+        "caution": false,
+        "last": "50 kg × 8"
+      },
+      "Extension jambes": {
+        "wt": "86",
+        "status": "maintien",
+        "caution": false,
+        "last": "86 kg × 8,8,8"
+      },
+      "Presse à mollets": {
+        "wt": "66",
+        "status": "maintien",
+        "caution": false,
+        "last": "66 kg × 8"
+      }
+    },
+    "Upper 2": {
+      "Développé militaire (Smith/barre)": {
+        "wt": "50",
+        "status": "maintien",
+        "caution": false,
+        "last": "50 kg × 8,8,6"
+      },
+      "Développé couché barre": {
+        "wt": "80",
+        "status": "maintien",
+        "caution": false,
+        "last": "80 kg × 8,8,7"
+      },
+      "Tirage poitrine prise serrée": {
+        "wt": "93",
+        "status": "maintien",
+        "caution": false,
+        "last": "93 kg × 8,7"
+      },
+      "Écarté machine": {
+        "wt": "107",
+        "status": "maintien",
+        "caution": false,
+        "last": "107 kg × 8,7"
+      },
+      "Rowing poulie assis": {
+        "wt": "73",
+        "status": "maintien",
+        "caution": false,
+        "last": "73 kg × 8,8,7"
+      },
+      "Élévation latérale haltère": {
+        "wt": "12",
+        "status": "maintien",
+        "caution": false,
+        "last": "12 kg × 10,10,8"
+      },
+      "Oiseau machine": {
+        "wt": "73",
+        "status": "maintien",
+        "caution": false,
+        "last": "73 kg × 8,8,8"
+      },
+      "Curl pupitre machine": {
+        "wt": "54",
+        "status": "maintien",
+        "caution": false,
+        "last": "54 kg × 8,6"
+      },
+      "Extension triceps poulie": {
+        "wt": "50",
+        "status": "maintien",
+        "caution": false,
+        "last": "50 kg × 8,8,8"
+      }
     }
   },
-  "flags": [
-    { "day": "Upper 2", "exercise": "Développé militaire (Smith/barre)", "note": "épaule un peu sensible sur les dernières reps" }
-  ]
+  "flags": []
 }
