@@ -1,0 +1,41 @@
+# .github/workflows/hevy-sync.yml
+# Met à jour data.json depuis Hevy, automatiquement.
+# Prérequis : dans le repo, Settings > Secrets and variables > Actions,
+# crée un secret nommé HEVY_API_KEY avec ta clé (portail développeur Hevy, Pro requis).
+
+name: Sync Hevy
+
+on:
+  schedule:
+    - cron: "0 6 * * *"     # tous les jours à 06:00 UTC — ajuste si tu veux
+  workflow_dispatch: {}       # permet aussi de lancer à la main depuis l'onglet Actions
+
+permissions:
+  contents: write             # nécessaire pour committer data.json
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Générer data.json depuis Hevy
+        env:
+          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
+        run: python hevy_sync.py
+
+      - name: Committer si data.json a changé
+        run: |
+          if [[ -n "$(git status --porcelain data.json)" ]]; then
+            git config user.name  "hevy-sync-bot"
+            git config user.email "actions@github.com"
+            git add data.json
+            git commit -m "chore: maj objectifs depuis Hevy ($(date -u +%F))"
+            git push
+          else
+            echo "Aucun changement."
+          fi
