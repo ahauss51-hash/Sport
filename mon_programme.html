@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon programme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161A; --panel:#1A2026; --panel2:#212a31; --line:#2c363d;
+    --chalk:#ECEEE8; --muted:#8A968E; --brass:#D2A34A; --brass-soft:rgba(210,163,74,.12);
+    --strength:#C57B57; --volume:#5FA88C; --lower:#D2A34A; --run:#6E8FB5; --swim:#5aa9c0; --rest:#6b7680;
+    --caution:#E0A73C; --up:#5FA88C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--chalk);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    padding:clamp(14px,4vw,40px);max-width:760px;margin:0 auto;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+  .brand .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)}
+  .brand h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,8vw,50px);line-height:.9;text-transform:uppercase;margin-top:4px}
+  .today-date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-align:right}
+  .today-date b{color:var(--chalk);display:block;font-size:14px}
+  .today-date .rng{font-size:11px;margin-top:2px}
+
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:24px}
+  .pill{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 3px 8px;cursor:pointer;text-align:center;
+    transition:transform .12s,border-color .15s,background .15s;-webkit-tap-highlight-color:transparent;position:relative}
+  .pill:hover{transform:translateY(-2px)}
+  .pill .d{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .pill .dt{font-family:'Anton',sans-serif;font-size:17px;line-height:1;margin-top:3px;color:var(--muted)}
+  .pill .ic{width:8px;height:8px;border-radius:50%;margin:7px auto 0}
+  .pill.active{background:var(--panel2)}
+  .pill.active .d{color:var(--chalk)}
+  .pill.active .dt{color:var(--chalk)}
+  .pill.active{border-color:currentColor}
+  .pill.today .dt{color:var(--brass)}
+  .pill.today::after{content:"";position:absolute;top:5px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--brass)}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .phead{padding:22px 22px 18px;border-bottom:1px solid var(--line);position:relative}
+  .phead .kind{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .phead h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(26px,7vw,40px);text-transform:uppercase;line-height:.95;margin-top:6px}
+  .phead .sub{color:var(--muted);font-size:13px;margin-top:8px;max-width:46ch}
+  .phead .istoday{position:absolute;top:22px;right:22px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);border:1px solid var(--brass);border-radius:20px;padding:3px 10px}
+  .pbody{padding:14px 22px 24px}
+
+  .exo{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .exo:last-child{border-bottom:none}
+  .exo .name{flex:1;font-size:14.5px;font-weight:600;min-width:0}
+  .exo .name small{display:block;font-weight:400;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:3px}
+  .exo .reps{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap}
+  .exo .wt{font-family:'Anton',sans-serif;font-size:26px;color:var(--brass);line-height:1;white-space:nowrap;min-width:74px;text-align:right;position:relative}
+  .exo .wt small{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-left:2px}
+  .exo .wt .up{position:absolute;top:-8px;right:0;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--up)}
+  .exo.add .name::after{content:"AJOUT";font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;background:var(--brass);color:#12161A;padding:1px 5px;border-radius:3px;margin-left:8px;vertical-align:middle}
+  .exo.caution .wt{color:var(--caution)}
+  .cautionline{background:rgba(224,167,60,.1);border-left:3px solid var(--caution);border-radius:0 8px 8px 0;
+    padding:8px 12px;margin:2px 0 12px;font-size:12px;color:#f0c877}
+  .prog-note{background:var(--panel2);border-radius:10px;padding:13px 15px;margin-top:16px;font-size:12.5px;color:var(--muted)}
+  .prog-note b{color:var(--brass)}
+  .synced{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:7px}
+  .synced .dot{width:6px;height:6px;border-radius:50%;background:var(--up)}
+  .synced.stale .dot{background:var(--muted)}
+
+  .block{margin-bottom:20px}.block:last-child{margin-bottom:0}
+  .block h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--run);margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .block h3 .auto{color:var(--muted);font-size:10px;letter-spacing:.03em;text-transform:none;font-weight:400;text-align:right}
+  .swim .block h3{color:var(--swim)}
+  .steps{list-style:none}
+  .steps li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .steps li:last-child{border-bottom:none}
+  .steps li .lab{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:78px;padding-top:2px}
+  .steps li .val{color:var(--chalk)} .steps li .val b{color:var(--chalk)}
+
+  .ramp{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+  .ramp button{flex:1;min-width:42px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 4px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);cursor:pointer;transition:.12s;-webkit-tap-highlight-color:transparent;position:relative}
+  .ramp button.on{background:var(--run);color:#12161A;border-color:var(--run);font-weight:700}
+  .ramp button.cur::after{content:"";position:absolute;top:3px;right:3px;width:4px;height:4px;border-radius:50%;background:var(--brass)}
+  .ramp button.on.cur::after{background:#12161A}
+  .ramp-target{background:var(--panel2);border-left:3px solid var(--run);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:18px}
+  .ramp-target .big{font-family:'Anton',sans-serif;font-size:22px;text-transform:uppercase}
+  .ramp-target .cue{color:var(--muted);font-size:12.5px;margin-top:4px}
+
+  .swtabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+  .swtabs button{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 14px;position:relative;
+    font-size:12.5px;color:var(--muted);cursor:pointer;transition:.12s;-webkit-tap-highlight-color:transparent;font-weight:500}
+  .swtabs button.on{background:var(--swim);color:#12161A;border-color:var(--swim);font-weight:700}
+  .swtabs button.cur::after{content:"";position:absolute;top:4px;right:5px;width:4px;height:4px;border-radius:50%;background:var(--brass)}
+  .swtabs button.on.cur::after{background:#12161A}
+  .sw-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--swim);margin-bottom:12px;letter-spacing:.04em}
+
+  .rest-wrap{text-align:center;padding:30px 10px}
+  .rest-wrap .big{font-family:'Anton',sans-serif;font-size:40px;text-transform:uppercase;color:var(--rest)}
+  .rest-wrap p{color:var(--muted);font-size:14px;margin-top:10px;max-width:38ch;margin-inline:auto}
+
+  .warn{background:rgba(197,123,87,.1);border:1px solid rgba(197,123,87,.3);border-radius:10px;padding:12px 15px;margin-top:16px;font-size:12.5px;color:#e6a98d}
+  footer{margin-top:22px;text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.7}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="eyebrow">Programme · semaine en cours</div>
+    <h1 id="brandTitle">Aujourd'hui</h1>
+  </div>
+  <div class="today-date" id="todayDate"></div>
+</header>
+
+<nav class="week" id="weekStrip"></nav>
+<div class="panel"><div id="panel"></div></div>
+<footer id="foot"></footer>
+
+<script>
+/* ============================================================
+   CONFIG
+   • REPRISE_START : date de ta 1ère sortie course / natation.
+   • wt : objectif de DÉPART (repli si data.json absent). Une fois
+     la synchro Hevy en place, data.json prend le dessus tout seul.
+   ============================================================ */
+const REPRISE_START = '2026-08-29';
+
+const COL = {strength:'--strength', volume:'--volume', lower:'--lower', run:'--run', swim:'--swim', rest:'--rest'};
+
+const WEEK = [
+  { day:'Lun', type:'strength', title:'Upper 1', kind:'Force · haut du corps',
+    sub:'Développé couché lourd en tête, à froid. Échauffe l\'épaule avant.',
+    exos:[
+      {n:'Développé couché barre', s:'4', r:'4-6', wt:95},
+      {n:'Tractions lestées', s:'4', r:'6-8', wt:'+20'},
+      {n:'Développé incliné barre', s:'3', r:'6-8', wt:60},
+      {n:'Rowing assis machine', s:'4', r:'8-10', wt:79},
+      {n:'Élévation latérale haltère', s:'4', r:'10-15', wt:12},
+      {n:'Extension triceps poulie', s:'3', r:'8-12', wt:41},
+      {n:'Curl pupitre', s:'3', r:'8-12', wt:38},
+      {n:'Tirage vers le visage', s:'3', r:'12-15', wt:32, note:'santé épaule'},
+    ]},
+  { day:'Mar', type:'lower', title:'Lower', kind:'Bas du corps · complet',
+    sub:'Ta seule séance jambes de la semaine — elle couvre tout.',
+    exos:[
+      {n:'Squat barre', s:'4', r:'5-6', wt:100},
+      {n:'Soulevé de terre roumain', s:'3', r:'8-10', wt:'≈60', add:true, note:'démarre léger, technique d\'abord'},
+      {n:'Presse à cuisses', s:'3', r:'8-10', wt:107},
+      {n:'Leg curl allongé', s:'3', r:'10-12', wt:50},
+      {n:'Extension jambes', s:'3', r:'12-15', wt:100},
+      {n:'Presse à mollets', s:'4', r:'10-15', wt:66},
+      {n:'Relevé de jambe suspendu', s:'3', r:'10-15', wt:'PdC'},
+    ]},
+  { day:'Mer', type:'rest', title:'Repos' },
+  { day:'Jeu', type:'volume', title:'Upper 2', kind:'Volume · épaules',
+    sub:'Militaire en tête (épaules fraîches), bench plus léger en reps hautes.',
+    exos:[
+      {n:'Développé militaire (Smith/barre)', s:'4', r:'6-8', wt:50},
+      {n:'Développé couché barre', s:'4', r:'8-10', wt:80},
+      {n:'Tirage poitrine prise serrée', s:'4', r:'8-10', wt:93},
+      {n:'Écarté machine', s:'3', r:'10-12', wt:107},
+      {n:'Rowing poulie assis', s:'4', r:'8-10', wt:86},
+      {n:'Élévation latérale haltère', s:'4', r:'12-15', wt:12},
+      {n:'Oiseau machine', s:'3', r:'12-15', wt:73, note:'santé épaule'},
+      {n:'Curl pupitre machine', s:'3', r:'8-12', wt:54},
+      {n:'Extension triceps poulie', s:'3', r:'10-12', wt:50},
+    ]},
+  { day:'Ven', type:'swim', title:'Natation', kind:'Cardio · reprise' },
+  { day:'Sam', type:'run', title:'Course', kind:'Cardio · endurance' },
+  { day:'Dim', type:'rest', title:'Repos' },
+];
+
+const RUN_RAMP = [
+  {main:'25-30 min continu', cue:'Très facile. Tu dois finir en te disant « j\'aurais pu faire plus ».'},
+  {main:'30-35 min facile', cue:'Même allure, un peu plus long.'},
+  {main:'35-40 min facile', cue:'Si aucune gêne tendineuse, tu continues.'},
+  {main:'30 min + 4 × 1 min vite', cue:'Premières accélérations douces, récup en trot.'},
+  {main:'45 min facile', cue:'On rallonge la sortie longue.'},
+  {main:'40 min + 5-6 × 1 min soutenu', cue:'Le moteur est revenu. Ensuite, tu ajustes librement.'},
+];
+const SWIM = [
+  {name:'A · Reprise', meta:'~1200 m · sem. 1-2', steps:[
+    ['Échauff.','200 m crawl souple'],['Technique','4 × 50 m éducatifs'],['Jambes','4 × 50 m planche'],
+    ['Série','6 × 50 m crawl aisé · 20 s repos'],['Calme','100 m brasse']]},
+  {name:'B · Endurance', meta:'~1600-1800 m · sem. 3-4', steps:[
+    ['Échauff.','300 m crawl souple'],['Technique','4 × 50 m éducatifs'],['Série','8 × 100 m crawl régulier · 20-30 s repos'],
+    ['Jambes','4 × 50 m planche (repos épaules)'],['Calme','100 m au choix']]},
+  {name:'C · Vitesse', meta:'~1500 m · dès sem. 5', steps:[
+    ['Échauff.','300 m progressif'],['Technique','4 × 50 m éducatifs'],['Série','8-10 × 50 m rapide · 30-40 s repos'],
+    ['Souple','200 m entre deux'],['Calme','200 m facile']]},
+];
+
+/* ===================== DONNÉES HEVY (data.json) ===================== */
+let SYNC = null;   // { generated_at, updates:{ "Upper 1":{ "Développé couché barre":{wt,status,caution,cautionMsg,last} } } }
+function ovr(dayTitle, exoName){
+  return SYNC && SYNC.updates && SYNC.updates[dayTitle] ? SYNC.updates[dayTitle][exoName] : null;
+}
+
+/* ===================== LOGIQUE DATES ===================== */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const jsToIdx={1:0,2:1,3:2,4:3,5:4,6:5,0:6};
+const FULLDAY=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+
+const now=new Date();
+const today0=new Date(now); today0.setHours(0,0,0,0);
+const todayIdx=jsToIdx[now.getDay()];
+
+const monday=new Date(today0);
+monday.setDate(today0.getDate() + (now.getDay()===0 ? -6 : 1-now.getDay()));
+const weekDates=[...Array(7)].map((_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);return d;});
+
+const start=new Date(REPRISE_START+'T00:00:00');
+const diffDays=Math.floor((today0-start)/86400000);
+const rawWeek=Math.floor(diffDays/7)+1;
+const repriseDone = rawWeek>RUN_RAMP.length;
+const currentRunWeek = Math.min(Math.max(rawWeek,1), RUN_RAMP.length);
+const currentSwimTab = currentRunWeek<=2?0 : currentRunWeek<=4?1 : 2;
+
+let selected=todayIdx, RUN_WEEK=currentRunWeek, SWIM_TAB=currentSwimTab;
+
+const opt={day:'numeric',month:'long'};
+document.getElementById('todayDate').innerHTML=
+  `<b>${FULLDAY[now.getDay()]} ${now.toLocaleDateString('fr-FR',opt)}</b>`+
+  `<span class="rng">${weekDates[0].toLocaleDateString('fr-FR',{day:'numeric'})}–${weekDates[6].toLocaleDateString('fr-FR',opt)}</span>`;
+
+/* ===================== RENDER ===================== */
+function buildStrip(){
+  const strip=document.getElementById('weekStrip');
+  strip.innerHTML=WEEK.map((d,i)=>{
+    const c=css(COL[d.type]);
+    return `<div class="pill ${i===selected?'active':''} ${i===todayIdx?'today':''}" data-i="${i}" style="color:${c}">
+      <div class="d">${d.day}</div><div class="dt">${weekDates[i].getDate()}</div>
+      <div class="ic" style="background:${c}"></div></div>`;
+  }).join('');
+  strip.querySelectorAll('.pill').forEach(p=>p.onclick=()=>{selected=+p.dataset.i;render();});
+}
+
+function exoRow(e, dayTitle){
+  const o=ovr(dayTitle, e.n);
+  const wtVal = o ? o.wt : e.wt;
+  const w=(typeof wtVal==='number')?`${wtVal}<small>kg</small>`:`${wtVal}`;
+  const up = (o && o.status==='progression') ? '<span class="up">▲</span>' : '';
+  const caution = o && o.caution;
+  const cls = `exo ${e.add?'add':''} ${caution?'caution':''}`;
+  let row=`<div class="${cls}">
+    <div class="name">${e.n}${e.note?`<small>${e.note}</small>`:''}</div>
+    <div class="reps">${e.s}×${e.r}</div>
+    <div class="wt">${up}${w}</div></div>`;
+  if(caution && o.cautionMsg) row+=`<div class="cautionline">⚠ ${o.cautionMsg}</div>`;
+  return row;
+}
+
+function render(){
+  buildStrip();
+  const d=WEEK[selected], c=css(COL[d.type]);
+  document.getElementById('brandTitle').textContent=(selected===todayIdx)?"Aujourd'hui":`${d.day} ${weekDates[selected].getDate()}`;
+  let head=`<div class="phead">
+    <div class="kind" style="color:${c}">${d.kind||''}</div>
+    <h2>${d.title}</h2>
+    ${d.sub?`<div class="sub">${d.sub}</div>`:''}
+    ${selected===todayIdx?'<div class="istoday">Aujourd\'hui</div>':''}
+  </div>`;
+  let body='';
+
+  if(d.type==='strength'||d.type==='volume'||d.type==='lower'){
+    let sync='';
+    if(SYNC && SYNC.generated_at){
+      const dt=new Date(SYNC.generated_at);
+      const days=Math.floor((today0-new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()))/86400000);
+      const stale = days>3;
+      sync=`<div class="synced ${stale?'stale':''}"><span class="dot"></span>Objectifs synchronisés depuis Hevy · maj ${dt.toLocaleDateString('fr-FR',opt)}</div>`;
+    }
+    body=`<div class="pbody">${d.exos.map(e=>exoRow(e,d.title)).join('')}
+      <div class="prog-note"><b>Progression :</b> garde la charge tant que tu n'as pas le haut de la fourchette sur toutes les séries. Validé → +2,5 kg (gros mvts) ou le plus petit saut (isolation). ${SYNC?'Fait automatiquement d\'après ta dernière séance.':''}</div>
+      ${sync}</div>`;
+  }
+  else if(d.type==='run'){
+    const r=RUN_RAMP[RUN_WEEK-1];
+    const auto = repriseDone ? 'reprise terminée — allure libre' : (RUN_WEEK===currentRunWeek ? '● semaine du jour' : 'aperçu');
+    body=`<div class="pbody run">
+      <div class="block"><h3>Semaine de reprise <span class="auto">${auto}</span></h3>
+        <div class="ramp">${RUN_RAMP.map((_,i)=>`<button class="${i+1===RUN_WEEK?'on':''} ${i+1===currentRunWeek&&!repriseDone?'cur':''}" data-w="${i+1}">S${i+1}</button>`).join('')}</div>
+        <div class="ramp-target"><div class="big">${r.main}</div><div class="cue">${r.cue}</div></div></div>
+      <div class="block"><h3>Déroulé de la séance</h3>
+        <ul class="steps">
+          <li><span class="lab">Échauff.</span><span class="val">5 min marche + trot très lent</span></li>
+          <li><span class="lab">Corps</span><span class="val"><b>${r.main}</b> en endurance fondamentale — allure où tu peux parler</span></li>
+          <li><span class="lab">Retour</span><span class="val">3-5 min marche + étirements légers mollets/quadris</span></li>
+        </ul></div>
+      <div class="warn">+10 % de volume/semaine max. Ton souffle reviendra avant tes tendons — une douleur articulaire (tibia, genou, Achille) = tu réduis, tu ne forces pas.</div></div>`;
+  }
+  else if(d.type==='swim'){
+    const s=SWIM[SWIM_TAB];
+    const auto = repriseDone ? 'phase libre' : (SWIM_TAB===currentSwimTab?'● phase du jour':'aperçu');
+    body=`<div class="pbody swim">
+      <div class="block"><h3 style="color:var(--swim)">Séance <span class="auto">${auto}</span></h3>
+      <div class="swtabs">${SWIM.map((x,i)=>`<button class="${i===SWIM_TAB?'on':''} ${i===currentSwimTab&&!repriseDone?'cur':''}" data-t="${i}">${x.name.split(' ')[0]}</button>`).join('')}</div>
+      <div class="sw-meta">${s.meta} · bassin 25 m</div>
+      <ul class="steps">${s.steps.map(([l,v])=>`<li><span class="lab">${l}</span><span class="val">${v}</span></li>`).join('')}</ul></div>
+      <div class="warn" style="border-color:rgba(90,169,192,.3);background:rgba(90,169,192,.08);color:#a3d8e6">
+        Épaule sensible ? Réduis le crawl de moitié, remplace par de la planche (jambes seules) ou de la brasse. Pas de vitesse tant que ça tiraille.</div></div>`;
+  }
+  else{
+    body=`<div class="pbody"><div class="rest-wrap">
+      <div class="big">Repos</div>
+      <p>Journée off. Récupération, sommeil, un peu de marche si tu veux. C'est là que le travail paie.</p></div></div>`;
+  }
+
+  document.getElementById('panel').innerHTML=head+body;
+  document.querySelectorAll('.ramp button').forEach(b=>b.onclick=()=>{RUN_WEEK=+b.dataset.w;render();});
+  document.querySelectorAll('.swtabs button').forEach(b=>b.onclick=()=>{SWIM_TAB=+b.dataset.t;render();});
+}
+
+function setFoot(){
+  document.getElementById('foot').innerHTML = repriseDone
+    ? `Reprise terminée · édite REPRISE_START en haut du fichier`
+    : `Reprise : semaine ${currentRunWeek}/6 (départ ${start.toLocaleDateString('fr-FR',opt)}) · ${SYNC?'objectifs muscu synchronisés depuis Hevy':'objectifs muscu = valeurs par défaut (synchro Hevy non détectée)'}`;
+}
+
+/* charge data.json si présent (généré par la GitHub Action Hevy), sinon valeurs par défaut */
+fetch('data.json', {cache:'no-store'})
+  .then(r=>r.ok?r.json():null)
+  .then(j=>{ if(j&&j.updates) SYNC=j; })
+  .catch(()=>{})
+  .finally(()=>{ render(); setFoot(); });
+
+render(); setFoot();
+</script>
+</body>
+</html>

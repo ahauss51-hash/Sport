@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-08-27T06:00:00+00:00",
+  "source": "hevy",
+  "updates": {
+    "Upper 1": {
+      "Développé couché barre": { "wt": 97.5, "status": "progression", "caution": false, "last": "95 kg × 6,6,6" },
+      "Tractions lestées": { "wt": "+22.5", "status": "progression", "caution": false, "last": "20 kg × 8,8,8" },
+      "Développé incliné barre": { "wt": 60, "status": "maintien", "caution": false, "last": "60 kg × 7,6" }
+    },
+    "Upper 2": {
+      "Développé militaire (Smith/barre)": {
+        "wt": 50, "status": "prudence", "caution": true,
+        "cautionMsg": "Note de douleur détectée — charge maintenue. Réduis ~10 % (≈ 45) ou passe en variante plus douce si ça tire.",
+        "last": "50 kg × 8,7"
+      }
+    },
+    "Lower": {
+      "Squat barre": { "wt": 102.5, "status": "progression", "caution": false, "last": "100 kg × 6,6,6,6" }
+    }
+  },
+  "flags": [
+    { "day": "Upper 2", "exercise": "Développé militaire (Smith/barre)", "note": "épaule un peu sensible sur les dernières reps" }
+  ]
+}
