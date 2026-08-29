@@ -12,6 +12,7 @@
     --bg:#12161A; --panel:#1A2026; --panel2:#212a31; --line:#2c363d;
     --chalk:#ECEEE8; --muted:#8A968E; --brass:#D2A34A; --brass-soft:rgba(210,163,74,.12);
     --strength:#C57B57; --volume:#5FA88C; --lower:#D2A34A; --run:#6E8FB5; --swim:#5aa9c0; --rest:#6b7680;
+    --caution:#E0A73C; --up:#5FA88C;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -52,11 +53,18 @@
   .exo .name{flex:1;font-size:14.5px;font-weight:600;min-width:0}
   .exo .name small{display:block;font-weight:400;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:3px}
   .exo .reps{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap}
-  .exo .wt{font-family:'Anton',sans-serif;font-size:26px;color:var(--brass);line-height:1;white-space:nowrap;min-width:74px;text-align:right}
+  .exo .wt{font-family:'Anton',sans-serif;font-size:26px;color:var(--brass);line-height:1;white-space:nowrap;min-width:74px;text-align:right;position:relative}
   .exo .wt small{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-left:2px}
+  .exo .wt .up{position:absolute;top:-8px;right:0;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--up)}
   .exo.add .name::after{content:"AJOUT";font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;background:var(--brass);color:#12161A;padding:1px 5px;border-radius:3px;margin-left:8px;vertical-align:middle}
+  .exo.caution .wt{color:var(--caution)}
+  .cautionline{background:rgba(224,167,60,.1);border-left:3px solid var(--caution);border-radius:0 8px 8px 0;
+    padding:8px 12px;margin:2px 0 12px;font-size:12px;color:#f0c877}
   .prog-note{background:var(--panel2);border-radius:10px;padding:13px 15px;margin-top:16px;font-size:12.5px;color:var(--muted)}
   .prog-note b{color:var(--brass)}
+  .synced{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:7px}
+  .synced .dot{width:6px;height:6px;border-radius:50%;background:var(--up)}
+  .synced.stale .dot{background:var(--muted)}
 
   .block{margin-bottom:20px}.block:last-child{margin-bottom:0}
   .block h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--run);margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
@@ -91,6 +99,21 @@
   .rest-wrap p{color:var(--muted);font-size:14px;margin-top:10px;max-width:38ch;margin-inline:auto}
 
   .warn{background:rgba(197,123,87,.1);border:1px solid rgba(197,123,87,.3);border-radius:10px;padding:12px 15px;margin-top:16px;font-size:12.5px;color:#e6a98d}
+
+  /* barre « aujourd'hui je fais » */
+  .todaybar{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 13px 11px;margin-bottom:14px}
+  .todaybar .lab{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .todaybar .reset{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.03em;text-transform:none;color:var(--muted);cursor:pointer;border:1px solid var(--line);border-radius:20px;padding:2px 9px;-webkit-tap-highlight-color:transparent;transition:.12s}
+  .todaybar .reset:hover{color:var(--chalk);border-color:var(--muted)}
+  .todaybar .opts{display:flex;gap:6px;flex-wrap:wrap}
+  .todaybar .opt{flex:1 1 auto;min-width:70px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 8px;cursor:pointer;transition:.12s;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;gap:7px}
+  .todaybar .opt:hover{transform:translateY(-1px)}
+  .todaybar .opt .dot{width:7px;height:7px;border-radius:50%;flex:none}
+  .todaybar .opt .t{font-size:12.5px;font-weight:600;color:var(--muted)}
+  .todaybar .opt.on{border-color:currentColor;background:var(--panel)}
+  .todaybar .opt.on .t{color:var(--chalk)}
+
+  .pill.swapped::before{content:"⇄";position:absolute;top:4px;left:5px;font-size:9px;color:var(--brass);line-height:1}
   footer{margin-top:22px;text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.7}
 </style>
 </head>
@@ -105,20 +128,18 @@
 </header>
 
 <nav class="week" id="weekStrip"></nav>
+<div class="todaybar" id="todayBar"></div>
 <div class="panel"><div id="panel"></div></div>
 <footer id="foot"></footer>
 
 <script>
 /* ============================================================
    CONFIG
-   ------------------------------------------------------------
-   • REPRISE_START : date de ta 1ère sortie course / natation
-     (format AAAA-MM-JJ). La semaine de reprise s'aligne toute
-     seule sur le calendrier à partir de cette date.
-   • wt : objectif de poids de chaque exo (édite au fil des
-     semaines quand tu montes une charge).
+   • REPRISE_START : date de ta 1ère sortie course / natation.
+   • wt : objectif de DÉPART (repli si data.json absent). Une fois
+     la synchro Hevy en place, data.json prend le dessus tout seul.
    ============================================================ */
-const REPRISE_START = '2026-08-29';   // <-- ta 1ère semaine de reprise
+const REPRISE_START = '2026-08-29';
 
 const COL = {strength:'--strength', volume:'--volume', lower:'--lower', run:'--run', swim:'--swim', rest:'--rest'};
 
@@ -148,13 +169,12 @@ const WEEK = [
     ]},
   { day:'Mer', type:'rest', title:'Repos' },
   { day:'Jeu', type:'volume', title:'Upper 2', kind:'Volume · épaules',
-    sub:'Militaire en tête (épaules fraîches), bench plus léger en reps hautes.',
+    sub:'Militaire et bench en tête, puis le volume épaules. Repos courts sur les isolations pour tenir ~1h20.',
     exos:[
       {n:'Développé militaire (Smith/barre)', s:'4', r:'6-8', wt:50},
       {n:'Développé couché barre', s:'4', r:'8-10', wt:80},
-      {n:'Tirage poitrine prise serrée', s:'4', r:'8-10', wt:93},
-      {n:'Écarté machine', s:'3', r:'10-12', wt:107},
-      {n:'Rowing poulie assis', s:'4', r:'8-10', wt:86},
+      {n:'Tirage poitrine prise serrée', s:'3', r:'8-10', wt:93},
+      {n:'Rowing poulie assis', s:'3', r:'8-10', wt:86},
       {n:'Élévation latérale haltère', s:'4', r:'12-15', wt:12},
       {n:'Oiseau machine', s:'3', r:'12-15', wt:73, note:'santé épaule'},
       {n:'Curl pupitre machine', s:'3', r:'8-12', wt:54},
@@ -174,32 +194,36 @@ const RUN_RAMP = [
   {main:'40 min + 5-6 × 1 min soutenu', cue:'Le moteur est revenu. Ensuite, tu ajustes librement.'},
 ];
 const SWIM = [
-  {name:'A · Reprise', meta:'~1200 m · sem. 1-2', steps:[
-    ['Échauff.','200 m crawl souple'],['Technique','4 × 50 m éducatifs'],['Jambes','4 × 50 m planche'],
-    ['Série','6 × 50 m crawl aisé · 20 s repos'],['Calme','100 m brasse']]},
-  {name:'B · Endurance', meta:'~1600-1800 m · sem. 3-4', steps:[
-    ['Échauff.','300 m crawl souple'],['Technique','4 × 50 m éducatifs'],['Série','8 × 100 m crawl régulier · 20-30 s repos'],
+  {name:'A · Reprise', meta:'~1400 m · sem. 1-2 · cible 45 min', steps:[
+    ['Échauff.','300 m crawl souple'],['Éducatifs','4 × 50 m — rattrapé · frôlé · godille · 3-appuis'],['Jambes','6 × 50 m planche'],
+    ['Série','8 × 50 m crawl aisé · 20 s repos'],['Calme','200 m souple (brasse ou dos)']]},
+  {name:'B · Endurance', meta:'~1600-1800 m · sem. 3-4 · cible ~50 min', steps:[
+    ['Échauff.','300 m crawl souple'],['Éducatifs','4 × 50 m — rattrapé · frôlé · 3-appuis · respi 3-temps'],['Série','8 × 100 m crawl régulier · 20-30 s repos'],
     ['Jambes','4 × 50 m planche (repos épaules)'],['Calme','100 m au choix']]},
-  {name:'C · Vitesse', meta:'~1500 m · dès sem. 5', steps:[
-    ['Échauff.','300 m progressif'],['Technique','4 × 50 m éducatifs'],['Série','8-10 × 50 m rapide · 30-40 s repos'],
+  {name:'C · Vitesse', meta:'~1500 m · dès sem. 5 · cible ~45 min', steps:[
+    ['Échauff.','300 m progressif'],['Éducatifs','4 × 50 m — poings fermés · godille · frôlé · coulées'],['Série','8-10 × 50 m rapide · 30-40 s repos'],
     ['Souple','200 m entre deux'],['Calme','200 m facile']]},
 ];
 
+/* ===================== DONNÉES HEVY (data.json) ===================== */
+let SYNC = null;   // { generated_at, updates:{ "Upper 1":{ "Développé couché barre":{wt,status,caution,cautionMsg,last} } } }
+function ovr(dayTitle, exoName){
+  return SYNC && SYNC.updates && SYNC.updates[dayTitle] ? SYNC.updates[dayTitle][exoName] : null;
+}
+
 /* ===================== LOGIQUE DATES ===================== */
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const jsToIdx={1:0,2:1,3:2,4:3,5:4,6:5,0:6};              // getDay -> index (lundi 1er)
+const jsToIdx={1:0,2:1,3:2,4:3,5:4,6:5,0:6};
 const FULLDAY=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
 
 const now=new Date();
 const today0=new Date(now); today0.setHours(0,0,0,0);
 const todayIdx=jsToIdx[now.getDay()];
 
-// lundi de la semaine courante
 const monday=new Date(today0);
 monday.setDate(today0.getDate() + (now.getDay()===0 ? -6 : 1-now.getDay()));
 const weekDates=[...Array(7)].map((_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);return d;});
 
-// semaine de reprise auto (course + natation)
 const start=new Date(REPRISE_START+'T00:00:00');
 const diffDays=Math.floor((today0-start)/86400000);
 const rawWeek=Math.floor(diffDays/7)+1;
@@ -207,11 +231,33 @@ const repriseDone = rawWeek>RUN_RAMP.length;
 const currentRunWeek = Math.min(Math.max(rawWeek,1), RUN_RAMP.length);
 const currentSwimTab = currentRunWeek<=2?0 : currentRunWeek<=4?1 : 2;
 
-let selected=todayIdx;
-let RUN_WEEK=currentRunWeek;
-let SWIM_TAB=currentSwimTab;
+let selected=todayIdx, RUN_WEEK=currentRunWeek, SWIM_TAB=currentSwimTab;
 
-// header
+/* ===================== SÉANCE DU JOUR (surcharge manuelle) =====================
+   Liste des séances distinctes proposables dans la barre « aujourd'hui je fais ».
+   La surcharge est mémorisée par date : elle se réinitialise seule le lendemain. */
+const SESSIONS = [WEEK[0], WEEK[1], WEEK[3], WEEK[4], WEEK[5], WEEK[2]]; // Upper 1, Lower, Upper 2, Natation, Course, Repos
+const sessIdxOf = day => SESSIONS.findIndex(s=>s.title===day.title && s.type===day.type);
+const plannedSIdx = sessIdxOf(WEEK[todayIdx]);
+
+const pad=n=>String(n).padStart(2,'0');
+const todayKey=`ovr:${today0.getFullYear()}-${pad(today0.getMonth()+1)}-${pad(today0.getDate())}`;
+
+// nettoie les surcharges des jours passés
+try{ Object.keys(localStorage).forEach(k=>{ if(k.startsWith('ovr:') && k!==todayKey) localStorage.removeItem(k); }); }catch(e){}
+
+let overrideIdx=null;
+try{ const v=localStorage.getItem(todayKey); if(v!==null){ const n=+v; if(n>=0 && n<SESSIONS.length) overrideIdx=n; } }catch(e){}
+
+const isSwapped = () => overrideIdx!=null && overrideIdx!==plannedSIdx;
+const effectiveDay = idx => (idx===todayIdx && overrideIdx!=null) ? SESSIONS[overrideIdx] : WEEK[idx];
+
+function setOverride(i){
+  if(i===plannedSIdx){ overrideIdx=null; try{localStorage.removeItem(todayKey);}catch(e){} }
+  else { overrideIdx=i; try{localStorage.setItem(todayKey,i);}catch(e){} }
+  selected=todayIdx; render();
+}
+
 const opt={day:'numeric',month:'long'};
 document.getElementById('todayDate').innerHTML=
   `<b>${FULLDAY[now.getDay()]} ${now.toLocaleDateString('fr-FR',opt)}</b>`+
@@ -221,27 +267,49 @@ document.getElementById('todayDate').innerHTML=
 function buildStrip(){
   const strip=document.getElementById('weekStrip');
   strip.innerHTML=WEEK.map((d,i)=>{
-    const c=css(COL[d.type]);
-    return `<div class="pill ${i===selected?'active':''} ${i===todayIdx?'today':''}" data-i="${i}" style="color:${c}">
-      <div class="d">${d.day}</div>
-      <div class="dt">${weekDates[i].getDate()}</div>
-      <div class="ic" style="background:${c}"></div>
-    </div>`;
+    const eff=effectiveDay(i), c=css(COL[eff.type]);
+    const swap=(i===todayIdx && isSwapped())?'swapped':'';
+    return `<div class="pill ${i===selected?'active':''} ${i===todayIdx?'today':''} ${swap}" data-i="${i}" style="color:${c}">
+      <div class="d">${d.day}</div><div class="dt">${weekDates[i].getDate()}</div>
+      <div class="ic" style="background:${c}"></div></div>`;
   }).join('');
   strip.querySelectorAll('.pill').forEach(p=>p.onclick=()=>{selected=+p.dataset.i;render();});
 }
 
-function exoRow(e){
-  const w=(typeof e.wt==='number')?`${e.wt}<small>kg</small>`:`${e.wt}`;
-  return `<div class="exo ${e.add?'add':''}">
+function exoRow(e, dayTitle){
+  const o=ovr(dayTitle, e.n);
+  const wtVal = o ? o.wt : e.wt;
+  const w=(typeof wtVal==='number')?`${wtVal}<small>kg</small>`:`${wtVal}`;
+  const up = (o && o.status==='progression') ? '<span class="up">▲</span>' : '';
+  const caution = o && o.caution;
+  const cls = `exo ${e.add?'add':''} ${caution?'caution':''}`;
+  let row=`<div class="${cls}">
     <div class="name">${e.n}${e.note?`<small>${e.note}</small>`:''}</div>
     <div class="reps">${e.s}×${e.r}</div>
-    <div class="wt">${w}</div></div>`;
+    <div class="wt">${up}${w}</div></div>`;
+  if(caution && o.cautionMsg) row+=`<div class="cautionline">⚠ ${o.cautionMsg}</div>`;
+  return row;
+}
+
+function buildTodayBar(){
+  const bar=document.getElementById('todayBar');
+  const activeIdx = overrideIdx!=null ? overrideIdx : plannedSIdx;
+  const reset = isSwapped()
+    ? `<span class="reset" id="resetOvr">↺ prévu : ${WEEK[todayIdx].title}</span>` : '';
+  const opts = SESSIONS.map((s,i)=>{
+    const c=css(COL[s.type]);
+    return `<div class="opt ${i===activeIdx?'on':''}" data-s="${i}" style="color:${c}">
+      <span class="dot" style="background:${c}"></span><span class="t">${s.title}</span></div>`;
+  }).join('');
+  bar.innerHTML=`<div class="lab"><span>Aujourd'hui je fais</span>${reset}</div><div class="opts">${opts}</div>`;
+  bar.querySelectorAll('.opt').forEach(o=>o.onclick=()=>setOverride(+o.dataset.s));
+  const rb=document.getElementById('resetOvr'); if(rb) rb.onclick=()=>setOverride(plannedSIdx);
 }
 
 function render(){
   buildStrip();
-  const d=WEEK[selected], c=css(COL[d.type]);
+  buildTodayBar();
+  const d=effectiveDay(selected), c=css(COL[d.type]);
   document.getElementById('brandTitle').textContent=(selected===todayIdx)?"Aujourd'hui":`${d.day} ${weekDates[selected].getDate()}`;
   let head=`<div class="phead">
     <div class="kind" style="color:${c}">${d.kind||''}</div>
@@ -252,26 +320,31 @@ function render(){
   let body='';
 
   if(d.type==='strength'||d.type==='volume'||d.type==='lower'){
-    body=`<div class="pbody">${d.exos.map(exoRow).join('')}
-      <div class="prog-note"><b>Progression :</b> garde la charge tant que tu n'as pas le haut de la fourchette sur toutes les séries. Validé → +2,5 kg (gros mvts) ou le plus petit saut (isolation), et tu repars du bas.</div></div>`;
+    let sync='';
+    if(SYNC && SYNC.generated_at){
+      const dt=new Date(SYNC.generated_at);
+      const days=Math.floor((today0-new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()))/86400000);
+      const stale = days>3;
+      sync=`<div class="synced ${stale?'stale':''}"><span class="dot"></span>Objectifs synchronisés depuis Hevy · maj ${dt.toLocaleDateString('fr-FR',opt)}</div>`;
+    }
+    body=`<div class="pbody">${d.exos.map(e=>exoRow(e,d.title)).join('')}
+      <div class="prog-note"><b>Progression :</b> garde la charge tant que tu n'as pas le haut de la fourchette sur toutes les séries. Validé → +2,5 kg (gros mvts) ou le plus petit saut (isolation). ${SYNC?'Fait automatiquement d\'après ta dernière séance.':''}</div>
+      ${sync}</div>`;
   }
   else if(d.type==='run'){
     const r=RUN_RAMP[RUN_WEEK-1];
-    const auto = repriseDone ? 'reprise terminée — allure libre'
-      : (RUN_WEEK===currentRunWeek ? '● semaine du jour' : 'aperçu');
+    const auto = repriseDone ? 'reprise terminée — allure libre' : (RUN_WEEK===currentRunWeek ? '● semaine du jour' : 'aperçu');
     body=`<div class="pbody run">
       <div class="block"><h3>Semaine de reprise <span class="auto">${auto}</span></h3>
         <div class="ramp">${RUN_RAMP.map((_,i)=>`<button class="${i+1===RUN_WEEK?'on':''} ${i+1===currentRunWeek&&!repriseDone?'cur':''}" data-w="${i+1}">S${i+1}</button>`).join('')}</div>
-        <div class="ramp-target"><div class="big">${r.main}</div><div class="cue">${r.cue}</div></div>
-      </div>
+        <div class="ramp-target"><div class="big">${r.main}</div><div class="cue">${r.cue}</div></div></div>
       <div class="block"><h3>Déroulé de la séance</h3>
         <ul class="steps">
           <li><span class="lab">Échauff.</span><span class="val">5 min marche + trot très lent</span></li>
           <li><span class="lab">Corps</span><span class="val"><b>${r.main}</b> en endurance fondamentale — allure où tu peux parler</span></li>
           <li><span class="lab">Retour</span><span class="val">3-5 min marche + étirements légers mollets/quadris</span></li>
         </ul></div>
-      <div class="warn">+10 % de volume/semaine max. Ton souffle reviendra avant tes tendons — une douleur articulaire (tibia, genou, Achille) = tu réduis, tu ne forces pas.</div>
-    </div>`;
+      <div class="warn">+10 % de volume/semaine max. Ton souffle reviendra avant tes tendons — une douleur articulaire (tibia, genou, Achille) = tu réduis, tu ne forces pas.</div></div>`;
   }
   else if(d.type==='swim'){
     const s=SWIM[SWIM_TAB];
@@ -282,8 +355,7 @@ function render(){
       <div class="sw-meta">${s.meta} · bassin 25 m</div>
       <ul class="steps">${s.steps.map(([l,v])=>`<li><span class="lab">${l}</span><span class="val">${v}</span></li>`).join('')}</ul></div>
       <div class="warn" style="border-color:rgba(90,169,192,.3);background:rgba(90,169,192,.08);color:#a3d8e6">
-        Épaule sensible ? Réduis le crawl de moitié, remplace par de la planche (jambes seules) ou de la brasse. Pas de vitesse tant que ça tiraille.</div>
-    </div>`;
+        Épaule sensible ? Réduis le crawl de moitié, remplace par de la planche (jambes seules) ou de la brasse. Pas de vitesse tant que ça tiraille.</div></div>`;
   }
   else{
     body=`<div class="pbody"><div class="rest-wrap">
@@ -296,11 +368,20 @@ function render(){
   document.querySelectorAll('.swtabs button').forEach(b=>b.onclick=()=>{SWIM_TAB=+b.dataset.t;render();});
 }
 
-document.getElementById('foot').innerHTML = repriseDone
-  ? `Reprise terminée · édite REPRISE_START et les objectifs de poids en haut du fichier`
-  : `Reprise : semaine ${currentRunWeek}/6 (départ ${start.toLocaleDateString('fr-FR',opt)}) · le point doré = la séance calée sur aujourd'hui`;
+function setFoot(){
+  document.getElementById('foot').innerHTML = repriseDone
+    ? `Reprise terminée · édite REPRISE_START en haut du fichier`
+    : `Reprise : semaine ${currentRunWeek}/6 (départ ${start.toLocaleDateString('fr-FR',opt)}) · ${SYNC?'objectifs muscu synchronisés depuis Hevy':'objectifs muscu = valeurs par défaut (synchro Hevy non détectée)'}`;
+}
 
-render();
+/* charge data.json si présent (généré par la GitHub Action Hevy), sinon valeurs par défaut */
+fetch('data.json', {cache:'no-store'})
+  .then(r=>r.ok?r.json():null)
+  .then(j=>{ if(j&&j.updates) SYNC=j; })
+  .catch(()=>{})
+  .finally(()=>{ render(); setFoot(); });
+
+render(); setFoot();
 </script>
 </body>
 </html>
