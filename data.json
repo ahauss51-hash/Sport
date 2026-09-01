@@ -1,13 +1,19 @@
 {
-  "generated_at": "2026-08-31T13:14:57+00:00",
+  "generated_at": "2026-09-01T11:25:29+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
-      "Tractions lestées": {
-        "wt": "+22.5",
-        "status": "progression",
+      "Développé couché barre": {
+        "wt": "95",
+        "status": "maintien",
         "caution": false,
-        "last": "20 kg × 8,8,8"
+        "last": "95 kg × 2"
+      },
+      "Tractions lestées": {
+        "wt": "+25",
+        "status": "maintien",
+        "caution": false,
+        "last": "25 kg × 6,6,6"
       },
       "Développé incliné barre": {
         "wt": "60",
@@ -19,25 +25,25 @@
         "wt": "79",
         "status": "maintien",
         "caution": false,
-        "last": "79 kg × 8,8,8"
+        "last": "79 kg × 8,8,8,8"
       },
       "Élévation latérale haltère": {
         "wt": "12",
         "status": "maintien",
         "caution": false,
-        "last": "12 kg × 8,8,8"
+        "last": "12 kg × 10,10,10,8"
       },
       "Extension triceps poulie": {
         "wt": "41",
         "status": "maintien",
         "caution": false,
-        "last": "41 kg × 9"
+        "last": "41 kg × 10,10,8"
       },
       "Tirage vers le visage": {
         "wt": "32",
         "status": "maintien",
         "caution": false,
-        "last": "32 kg × 8"
+        "last": "32 kg × 10,10,10"
       }
     },
     "Lower": {
