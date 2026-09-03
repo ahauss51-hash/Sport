@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T10:59:01+00:00",
+  "generated_at": "2026-09-03T10:57:51+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -51,19 +51,25 @@
         "wt": "100",
         "status": "maintien",
         "caution": false,
-        "last": "100 kg × 4,6,3"
+        "last": "100 kg × 4,4,4,3"
+      },
+      "Soulevé de terre roumain": {
+        "wt": "40",
+        "status": "maintien",
+        "caution": false,
+        "last": "40 kg × 6,8,6,6"
       },
       "Presse à cuisses": {
         "wt": "113",
         "status": "maintien",
         "caution": false,
-        "last": "113 kg × 4"
+        "last": "113 kg × 6"
       },
       "Leg curl allongé": {
         "wt": "50",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8"
+        "last": "50 kg × 8,8,6"
       },
       "Extension jambes": {
         "wt": "86",
@@ -75,7 +81,7 @@
         "wt": "66",
         "status": "maintien",
         "caution": false,
-        "last": "66 kg × 8"
+        "last": "66 kg × 8,8,8"
       }
     },
     "Upper 2": {
