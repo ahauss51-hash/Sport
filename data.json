@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T12:05:42+00:00",
+  "generated_at": "2026-09-08T10:58:21+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -7,19 +7,13 @@
         "wt": "95",
         "status": "maintien",
         "caution": false,
-        "last": "95 kg × 2"
+        "last": "95 kg × 4,4,4"
       },
       "Tractions lestées": {
         "wt": "+25",
         "status": "maintien",
         "caution": false,
         "last": "25 kg × 6,6,6"
-      },
-      "Développé incliné barre": {
-        "wt": "60",
-        "status": "maintien",
-        "caution": false,
-        "last": "60 kg × 7,7,7"
       },
       "Rowing assis machine": {
         "wt": "79",
@@ -34,16 +28,10 @@
         "last": "12 kg × 10,10,10,8"
       },
       "Extension triceps poulie": {
-        "wt": "41",
+        "wt": "45",
         "status": "maintien",
         "caution": false,
-        "last": "41 kg × 10,10,8"
-      },
-      "Tirage vers le visage": {
-        "wt": "32",
-        "status": "maintien",
-        "caution": false,
-        "last": "32 kg × 10,10,10"
+        "last": "45 kg × 8,8,8"
       }
     },
     "Lower": {
