@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T10:59:16+00:00",
+  "generated_at": "2026-09-11T10:57:44+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -61,17 +61,23 @@
       }
     },
     "Upper 2": {
+      "Développé militaire (Smith/barre)": {
+        "wt": "55",
+        "status": "maintien",
+        "caution": false,
+        "last": "55 kg × 6,6,6"
+      },
       "Développé couché barre": {
         "wt": "80",
         "status": "maintien",
         "caution": false,
-        "last": "80 kg × 8,8,6"
+        "last": "80 kg × 8,8,6,6"
       },
       "Tirage poitrine prise serrée": {
         "wt": "93",
         "status": "maintien",
         "caution": false,
-        "last": "93 kg × 8,8,7"
+        "last": "93 kg × 8"
       },
       "Rowing poulie assis": {
         "wt": "73",
@@ -83,7 +89,7 @@
         "wt": "12",
         "status": "maintien",
         "caution": false,
-        "last": "12 kg × 10,10,9"
+        "last": "12 kg × 9,10,9"
       },
       "Oiseau machine": {
         "wt": "73",
