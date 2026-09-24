@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T11:11:37+00:00",
+  "generated_at": "2026-09-24T11:27:12+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -42,22 +42,22 @@
         "last": "100 kg × 4,4,4"
       },
       "Soulevé de terre roumain": {
-        "wt": "60",
+        "wt": "40",
         "status": "maintien",
         "caution": false,
-        "last": "60 kg × 4"
+        "last": "40 kg × 6,6,6"
       },
       "Leg curl allongé": {
         "wt": "50",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8,8,8"
+        "last": "50 kg × 8,8,6"
       },
       "Presse à mollets": {
         "wt": "66",
         "status": "maintien",
         "caution": false,
-        "last": "66 kg × 8,8,8"
+        "last": "66 kg × 8,8"
       }
     },
     "Upper 2": {
