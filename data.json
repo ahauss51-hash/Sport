@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T12:15:23+00:00",
+  "generated_at": "2026-10-01T12:50:00+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -36,28 +36,22 @@
     },
     "Lower": {
       "Squat barre": {
-        "wt": "100",
+        "wt": "110",
         "status": "maintien",
         "caution": false,
-        "last": "100 kg × 4,4,4"
-      },
-      "Soulevé de terre roumain": {
-        "wt": "40",
-        "status": "maintien",
-        "caution": false,
-        "last": "40 kg × 6,6,6"
+        "last": "110 kg × 3,2"
       },
       "Leg curl allongé": {
         "wt": "50",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8,8,6"
+        "last": "50 kg × 8,8,8"
       },
       "Presse à mollets": {
         "wt": "66",
         "status": "maintien",
         "caution": false,
-        "last": "66 kg × 8,8"
+        "last": "66 kg × 8,8,8"
       }
     },
     "Upper 2": {
