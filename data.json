@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T13:01:22+00:00",
+  "generated_at": "2026-10-08T13:08:35+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -42,16 +42,16 @@
     },
     "Lower": {
       "Squat barre": {
-        "wt": "110",
+        "wt": "100",
         "status": "maintien",
         "caution": false,
-        "last": "110 kg × 3,2"
+        "last": "100 kg × 4,4,3"
       },
       "Leg curl allongé": {
         "wt": "50",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8,8,8"
+        "last": "50 kg × 8,8,8,5"
       },
       "Presse à mollets": {
         "wt": "66",
