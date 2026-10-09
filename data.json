@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T13:08:35+00:00",
+  "generated_at": "2026-10-09T12:55:20+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -65,19 +65,25 @@
         "wt": "80",
         "status": "maintien",
         "caution": false,
-        "last": "80 kg × 8,8,8,6"
+        "last": "80 kg × 6,8,6"
       },
       "Tirage poitrine prise serrée": {
-        "wt": "86",
+        "wt": "93",
         "status": "maintien",
         "caution": false,
-        "last": "86 kg × 8,8,8"
+        "last": "93 kg × 8,8"
+      },
+      "Écarté machine": {
+        "wt": "107",
+        "status": "maintien",
+        "caution": false,
+        "last": "107 kg × 8,7"
       },
       "Élévation latérale haltère": {
         "wt": "12",
         "status": "maintien",
         "caution": false,
-        "last": "12 kg × 10,10,10"
+        "last": "12 kg × 10,10,10,10"
       },
       "Oiseau machine": {
         "wt": "73",
@@ -86,10 +92,10 @@
         "last": "73 kg × 8,8,8"
       },
       "Extension triceps poulie": {
-        "wt": "50",
+        "wt": "54",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8,8,8"
+        "last": "54 kg × 8"
       }
     }
   },
