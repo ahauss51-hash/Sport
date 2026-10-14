@@ -1,31 +1,19 @@
 {
-  "generated_at": "2026-10-13T13:55:01+00:00",
+  "generated_at": "2026-10-14T11:32:20+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
-      "Développé couché barre": {
-        "wt": "90",
-        "status": "maintien",
-        "caution": false,
-        "last": "90 kg × 4,4"
-      },
       "Tractions lestées": {
-        "wt": "+30",
+        "wt": "+40",
         "status": "maintien",
         "caution": false,
-        "last": "30 kg × 6,6,6"
+        "last": "40 kg × 5"
       },
       "Développé incliné barre": {
-        "wt": "65",
+        "wt": "70",
         "status": "maintien",
         "caution": false,
-        "last": "65 kg × 7,7"
-      },
-      "Rowing assis machine": {
-        "wt": "79",
-        "status": "maintien",
-        "caution": false,
-        "last": "79 kg × 8,8,8,8"
+        "last": "70 kg × 6,6"
       },
       "Élévation latérale haltère": {
         "wt": "12",
@@ -37,7 +25,7 @@
         "wt": "50",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8,8,8"
+        "last": "50 kg × 8,10,8,7"
       }
     },
     "Lower": {
