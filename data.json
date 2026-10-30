@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T12:39:55+00:00",
+  "generated_at": "2026-10-30T12:30:58+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -49,23 +49,17 @@
       }
     },
     "Upper 2": {
-      "Développé couché barre": {
+      "Développé militaire (Smith/barre)": {
+        "wt": "50",
+        "status": "maintien",
+        "caution": false,
+        "last": "50 kg × 8,6,6"
+      },
+      "Rowing poulie assis": {
         "wt": "80",
         "status": "maintien",
         "caution": false,
-        "last": "80 kg × 6,8,6"
-      },
-      "Tirage poitrine prise serrée": {
-        "wt": "93",
-        "status": "maintien",
-        "caution": false,
-        "last": "93 kg × 8,8"
-      },
-      "Écarté machine": {
-        "wt": "107",
-        "status": "maintien",
-        "caution": false,
-        "last": "107 kg × 8,7"
+        "last": "80 kg × 6"
       },
       "Élévation latérale haltère": {
         "wt": "12",
@@ -74,16 +68,16 @@
         "last": "12 kg × 10,10,10,10"
       },
       "Oiseau machine": {
-        "wt": "73",
+        "wt": "40",
         "status": "maintien",
         "caution": false,
-        "last": "73 kg × 8,8,8"
+        "last": "40 kg × 8,8,8"
       },
-      "Extension triceps poulie": {
-        "wt": "54",
+      "Curl pupitre machine": {
+        "wt": "45",
         "status": "maintien",
         "caution": false,
-        "last": "54 kg × 8"
+        "last": "45 kg × 6"
       }
     }
   },
