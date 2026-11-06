@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T14:24:56+00:00",
+  "generated_at": "2026-11-06T14:00:16+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -49,23 +49,17 @@
       }
     },
     "Upper 2": {
-      "Développé militaire (Smith/barre)": {
-        "wt": "50",
+      "Développé couché barre": {
+        "wt": "90",
         "status": "maintien",
         "caution": false,
-        "last": "50 kg × 8,6,6"
-      },
-      "Rowing poulie assis": {
-        "wt": "80",
-        "status": "maintien",
-        "caution": false,
-        "last": "80 kg × 6"
+        "last": "90 kg × 6,5"
       },
       "Élévation latérale haltère": {
         "wt": "12",
         "status": "maintien",
         "caution": false,
-        "last": "12 kg × 10,10,10,10"
+        "last": "12 kg × 10,10,10"
       },
       "Oiseau machine": {
         "wt": "40",
@@ -74,10 +68,10 @@
         "last": "40 kg × 8,8,8"
       },
       "Curl pupitre machine": {
-        "wt": "45",
+        "wt": "55",
         "status": "maintien",
         "caution": false,
-        "last": "45 kg × 6"
+        "last": "55 kg × 6"
       }
     }
   },
