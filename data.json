@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T14:55:04+00:00",
+  "generated_at": "2026-11-13T14:20:34+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
@@ -50,28 +50,22 @@
     },
     "Upper 2": {
       "Développé couché barre": {
-        "wt": "90",
+        "wt": "100",
         "status": "maintien",
         "caution": false,
-        "last": "90 kg × 6,5"
+        "last": "100 kg × 3"
       },
       "Élévation latérale haltère": {
         "wt": "12",
         "status": "maintien",
         "caution": false,
-        "last": "12 kg × 10,10,10"
+        "last": "12 kg × 10,10,10,10"
       },
       "Oiseau machine": {
         "wt": "40",
         "status": "maintien",
         "caution": false,
         "last": "40 kg × 8,8,8"
-      },
-      "Curl pupitre machine": {
-        "wt": "55",
-        "status": "maintien",
-        "caution": false,
-        "last": "55 kg × 6"
       }
     }
   },
