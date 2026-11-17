@@ -1,31 +1,37 @@
 {
-  "generated_at": "2026-11-16T15:21:33+00:00",
+  "generated_at": "2026-11-17T15:45:18+00:00",
   "source": "hevy",
   "updates": {
     "Upper 1": {
       "Tractions lestées": {
-        "wt": "+30",
+        "wt": "+60",
         "status": "maintien",
         "caution": false,
-        "last": "30 kg × 6,6,5"
+        "last": "60 kg × 6"
       },
       "Développé incliné barre": {
         "wt": "70",
         "status": "maintien",
         "caution": false,
-        "last": "70 kg × 5"
+        "last": "70 kg × 5,5"
+      },
+      "Rowing assis machine": {
+        "wt": "90",
+        "status": "maintien",
+        "caution": false,
+        "last": "90 kg × 8,8,8"
       },
       "Élévation latérale haltère": {
         "wt": "14",
         "status": "maintien",
         "caution": false,
-        "last": "14 kg × 8,8,8"
+        "last": "14 kg × 8,8"
       },
       "Extension triceps poulie": {
-        "wt": "60",
+        "wt": "75",
         "status": "maintien",
         "caution": false,
-        "last": "60 kg × 6"
+        "last": "75 kg × 8"
       }
     },
     "Lower": {
